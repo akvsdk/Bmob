@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/md_cyan_400</color>
+    <color name="colorPrimaryDark">@color/md_cyan_800</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="login_true">#d9d9a3</color>
+    <color name="login_false">#c3c3c3</color>
+    <color name="white">#FFFFFF</color>
+    <color name="material_white">#b2FFFFFF</color>
+</resources>

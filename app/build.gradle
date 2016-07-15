@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+    useLibrary 'org.apache.http.legacy'
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    defaultConfig {
+        applicationId "com.ep.joy.bmob"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'cn.bmob.android:bmob-sdk:3.5.0'
+    //bmob-push：Bmob的推送包
+    compile 'cn.bmob.android:bmob-push:0.8'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'io.reactivex:rxjava:1.1.5'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'com.github.valuesfeng:androidpicturepicker:1.0.0'
+    compile 'com.trello:rxlifecycle:0.6.1'
+    compile 'com.trello:rxlifecycle-components:0.6.1'
+
+    compile 'com.github.devlight.navigationtabbar:navigationtabbar:1.2.4'
+
+    compile 'com.youzan:titan:0.1.0'
+    compile 'com.jiongbull:jlog:1.0.4'
+    compile 'org.jsoup:jsoup:1.9.2'
+
+
+}
