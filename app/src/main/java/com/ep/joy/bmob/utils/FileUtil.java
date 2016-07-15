@@ -1,7 +1,10 @@
 package com.ep.joy.bmob.utils;
 
+import android.app.Activity;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 
 import com.jiongbull.jlog.JLog;
 
@@ -52,5 +55,23 @@ public class FileUtil {
             return null;
         }
         return Uri.fromFile(file);
+    }
+
+    public static File getAbsoluteImagePath(Uri uri, Activity context) {
+        // can post image
+
+        String[] proj = {MediaStore.Images.Media.DATA};
+
+        Cursor actualimagecursor =context.managedQuery(uri, proj, null, null, null);
+
+        int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+        actualimagecursor.moveToFirst();
+
+        String img_path = actualimagecursor.getString(actual_image_column_index);
+
+        File file = new File(img_path);
+
+        return file;
     }
 }

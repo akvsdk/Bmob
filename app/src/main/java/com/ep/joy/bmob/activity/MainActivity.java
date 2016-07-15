@@ -2,10 +2,8 @@ package com.ep.joy.bmob.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +21,7 @@ import com.ep.joy.bmob.fragment.FragmentFour;
 import com.ep.joy.bmob.fragment.FragmentOne;
 import com.ep.joy.bmob.fragment.FragmentThree;
 import com.ep.joy.bmob.fragment.FragmentTwo;
+import com.ep.joy.bmob.utils.FileUtil;
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 
 import java.io.File;
@@ -153,7 +152,7 @@ public class MainActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             mSelected = PicturePickerUtils.obtainResult(data);
             for (Uri u : mSelected) {
-                mImgs.add(getAbsoluteImagePath(u));
+                mImgs.add(FileUtil.getAbsoluteImagePath(u, MainActivity.this));
             }
 
             final BmobFile bmobFile = new BmobFile(mImgs.get(0));
@@ -167,13 +166,16 @@ public class MainActivity extends BaseActivity {
                     progressDialog.show();
                     Log.e("Joy", integer + "***********");
                 }
-            }).doOnNext(new Action1<Void>() {
-                @Override
-                public void call(Void aVoid) {
-                    toast("上传成功");
-                    progressDialog.dismiss();
-                }
             })
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext(new Action1<Void>() {
+                        @Override
+                        public void call(Void aVoid) {
+                            toast("上传成功");
+                            progressDialog.dismiss();
+                        }
+                    })
                     .concatMap(new Func1<Void, Observable<Void>>() {
                         @Override
                         public Observable<Void> call(Void aVoid) {
@@ -194,24 +196,6 @@ public class MainActivity extends BaseActivity {
                     });
 
         }
-    }
-
-    protected File getAbsoluteImagePath(Uri uri) {
-        // can post image
-
-        String[] proj = {MediaStore.Images.Media.DATA};
-
-        Cursor actualimagecursor = managedQuery(uri, proj, null, null, null);
-
-        int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-        actualimagecursor.moveToFirst();
-
-        String img_path = actualimagecursor.getString(actual_image_column_index);
-
-        File file = new File(img_path);
-
-        return file;
     }
 
 
