@@ -9,6 +9,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:contentScrim="@color/md_cyan_900"
     app:elevation="3dp"
     tools:showIn="@layout/activity_showimg">
 
@@ -19,7 +20,19 @@
         android:background="?attr/colorPrimaryDark"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_scrollFlags="scroll|enterAlways|snap"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        />
+        app:popupTheme="@style/AppTheme.AppBarOverlay"
+        >
+
+        <com.ep.joy.bmob.weight.CustomTextView
+            android:id="@+id/toolbar_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="Eyepetizer"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+    </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.AppBarLayout>

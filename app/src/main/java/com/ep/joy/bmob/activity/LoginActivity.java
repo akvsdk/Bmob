@@ -51,7 +51,11 @@ public class LoginActivity extends BaseActivity {
         pwdEt = (ClearEditText) findViewById(R.id.pwd_et);
         forgetpwdTv = (TextView) findViewById(R.id.forgetpwd_tv);
         loginBtn = (Button) findViewById(R.id.login_btn);
-         user = BmobUser.getCurrentUser(MyUser.class);
+    }
+
+    @Override
+    protected void initData() {
+        user = BmobUser.getCurrentUser(MyUser.class);
         if (user != null) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
@@ -135,7 +139,6 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
-
 
     }
 

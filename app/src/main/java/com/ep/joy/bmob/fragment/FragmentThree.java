@@ -7,6 +7,9 @@ import android.widget.TextView;
 import com.ep.joy.bmob.R;
 import com.ep.joy.bmob.base.BaseFragment;
 
+import io.valuesfeng.picker.Picker;
+import io.valuesfeng.picker.engine.GlideEngine;
+
 
 /**
  * 类描述:
@@ -19,7 +22,7 @@ import com.ep.joy.bmob.base.BaseFragment;
  */
 public class FragmentThree extends BaseFragment {
 
-
+    public static final int REQUEST_CODE_CHOOSE = 1;
     private static final String ARGS_INSTANCE = FragmentThree.class.getSimpleName();
     int mInt;
     TextView tv;
@@ -35,6 +38,11 @@ public class FragmentThree extends BaseFragment {
 
     @Override
     protected int getContentViewLayoutID() {
+        Bundle args = getArguments();
+        if (args != null) {
+            mInt = args.getInt(ARGS_INSTANCE);
+        }
+
         return R.layout.fragment_three_layout;
     }
 
@@ -45,15 +53,16 @@ public class FragmentThree extends BaseFragment {
 
     @Override
     protected void initData() {
-
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Picker.from(getActivity())
+                        .count(3)
+                        .enableCamera(true)
+                        .setEngine(new GlideEngine())
+                        .forResult(REQUEST_CODE_CHOOSE);
+            }
+        });
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null) {
-            mInt = args.getInt(ARGS_INSTANCE);
-        }
-    }
 }

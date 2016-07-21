@@ -155,6 +155,16 @@ public class GlideProxy {
                 .into(imageView);
     }
 
+    // 加载Ur图片
+    public void loadUriImage(Context context, Uri uri, ImageView imageView) {
+        Glide.with(context)
+                .load(uri)
+                .placeholder(R.color.material_white)
+                .error(R.color.material_white)
+                .crossFade()
+                .into(imageView);
+    }
+
     // 加载本地圆型图片
     public void loadCircleLocalImage(Context context, String path, ImageView imageView) {
         Glide.with(context)

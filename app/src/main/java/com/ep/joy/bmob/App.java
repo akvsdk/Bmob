@@ -1,6 +1,7 @@
 package com.ep.joy.bmob;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.jiongbull.jlog.JLog;
 
@@ -11,9 +12,14 @@ import com.jiongbull.jlog.JLog;
  * Description:
  */
 public class App extends Application {
+    private static Context mContext;
+    public static Context getContext() {
+        return mContext;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = this;
         JLog.init(this)
                 .setDebug(BuildConfig.DEBUG);
     }

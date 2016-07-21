@@ -32,8 +32,30 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.SavaActivity"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+
+            />
+        <activity
+            android:name=".activity.SavaActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+
+            />
+        <activity
+            android:name=".activity.VideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+
+            />
+        <activity
+            android:name=".activity.VideoPlayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme"/>
+        <!-- 必须初始化 -->
+            android:screenOrientation="sensorLandscape" />
+        <!-- 必须初始化 -->
+
     </application>
 
 </manifest>

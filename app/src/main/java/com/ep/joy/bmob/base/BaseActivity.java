@@ -25,6 +25,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         Bmob.initialize(this, Constants.APPID);
         setContentView(setContentView());
         initView();
+        initData();
         //第二：自v3.4.7版本开始,设置BmobConfig,允许设置请求超时时间、文件分片上传时每片的大小、文件的过期时间(单位为秒)，
         //BmobConfig config =new BmobConfig.Builder(this)
         ////设置appkey
@@ -45,6 +46,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     Toast mToast;
 
     protected abstract void initView();
+    protected abstract void initData();
 
     public void toast(String text) {
         if (!TextUtils.isEmpty(text)) {
@@ -62,7 +64,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
+        overridePendingTransition(R.anim.anmi_in_right_left, R.anim.anmi_out_right_left);
         BaseAppManager.getInstance().removeActivity(this);
     }
 
@@ -75,7 +77,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void readyGo(Class<?> clazz) {
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
-        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
+        overridePendingTransition(R.anim.anmi_in_right_left, R.anim.anmi_out_right_left);
     }
 
     /**
@@ -90,7 +92,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             intent.putExtras(bundle);
         }
         startActivity(intent);
-        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
+        overridePendingTransition(R.anim.anmi_in_right_left, R.anim.anmi_out_right_left);
     }
 
     /**
@@ -102,7 +104,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
         finish();
-        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
+        overridePendingTransition(R.anim.anmi_in_right_left, R.anim.anmi_out_right_left);
     }
 
 
@@ -119,7 +121,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         }
         startActivity(intent);
         finish();
-        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
+        overridePendingTransition(R.anim.anmi_in_right_left, R.anim.anmi_out_right_left);
         BaseAppManager.getInstance().removeActivity(this);
     }
 
@@ -132,7 +134,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void readyGoForResult(Class<?> clazz, int requestCode) {
         Intent intent = new Intent(this, clazz);
         startActivityForResult(intent, requestCode);
-        overridePendingTransition(R.anim.anmi_in_right_left,R.anim.anmi_out_right_left);
+        overridePendingTransition(R.anim.anmi_in_right_left, R.anim.anmi_out_right_left);
     }
 
     /**

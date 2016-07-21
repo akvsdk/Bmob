@@ -2,11 +2,8 @@ package com.ep.joy.bmob.activity;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +13,7 @@ import android.widget.Toast;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.ep.joy.bmob.R;
+import com.ep.joy.bmob.base.BaseActivity;
 import com.ep.joy.bmob.bean.ImageInfo;
 import com.ep.joy.bmob.utils.FileUtil;
 import com.ep.joy.bmob.utils.GlideProxy;
@@ -39,7 +37,7 @@ import rx.schedulers.Schedulers;
  * version:  V1.0
  * Description:
  */
-public class SavaActivity extends AppCompatActivity {
+public class SavaActivity extends BaseActivity {
     public static final String BEAN = "bean";
     private ImageView mImageView;
     public ImageInfo mDatas;
@@ -47,16 +45,23 @@ public class SavaActivity extends AppCompatActivity {
     private AppBarLayout mbar;
     public String format;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_showimg);
+    protected int setContentView() {
+        return R.layout.activity_showimg;
+    }
+
+    @Override
+    protected void initView() {
         mDatas = getIntent().getParcelableExtra(BEAN);
         initToolBar();
         mImageView = (ImageView) findViewById(R.id.img);
         mImageView.setImageDrawable(ShareElement.shareDrawable);
-        ViewCompat.setTransitionName(mImageView, "share");
+    }
 
+    @Override
+    protected void initData() {
+        ViewCompat.setTransitionName(mImageView, "share");
         String[] ss = mDatas.getImgurl().split("\\.");
         format = ss[ss.length - 1];
         if (format.equals("gif")) {
@@ -130,6 +135,7 @@ public class SavaActivity extends AppCompatActivity {
                 subscriber.onNext(GlideProxy.getInstance().savegif(SavaActivity.this, mDatas.getImgurl()));
             }
         })
+                .compose(SavaActivity.this.<File>bindToLifecycle())
                 .map(new Func1<File, Uri>() {
                     @Override
                     public Uri call(File file) {

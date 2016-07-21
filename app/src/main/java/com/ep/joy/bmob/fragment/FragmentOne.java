@@ -15,6 +15,7 @@ import com.ep.joy.bmob.bean.ImageInfo;
 import com.ep.joy.bmob.utils.GlideProxy;
 import com.ep.joy.bmob.utils.JsoupTool;
 import com.ep.joy.bmob.utils.ShareElement;
+import com.jiongbull.jlog.JLog;
 import com.youzan.titan.QuickAdapter;
 import com.youzan.titan.TitanRecyclerView;
 import com.youzan.titan.holder.AutoViewHolder;
@@ -25,9 +26,6 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 public class FragmentOne extends BaseFragment {
 
@@ -103,20 +101,31 @@ public class FragmentOne extends BaseFragment {
     }
 
     private void loaddate() {
-        Observable.create(new Observable.OnSubscribe<List<ImageInfo>>() {
+
+        Observable observable = Observable.create(new Observable.OnSubscribe<List<ImageInfo>>() {
             @Override
             public void call(Subscriber<? super List<ImageInfo>> subscriber) {
                 subscriber.onNext(JsoupTool.getInstance().getContent("http://zhuangbi.info/?page=" + pages));
             }
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<ImageInfo>>() {
-                    @Override
-                    public void call(List<ImageInfo> s) {
-                        mQuickAdapter.addDataEnd(s);
-                    }
-                });
+        });
+        final Subscriber subscribe = new Subscriber<List<ImageInfo>>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                JLog.e(e.getMessage());
+            }
+
+            @Override
+            public void onNext(List<ImageInfo> s) {
+                mQuickAdapter.addDataEnd(s);
+            }
+        };
+
+        addSubscription(observable, subscribe);
+
 
     }
 

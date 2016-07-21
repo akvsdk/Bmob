@@ -43,6 +43,7 @@ public class MainActivity extends BaseActivity {
     public static final int REQUEST_CODE_CHOOSE = 1;
     private List<Uri> mSelected;
     private List<File> mImgs = new ArrayList<>();
+    private ViewPager viewPager;
 
 
     @Override
@@ -55,9 +56,14 @@ public class MainActivity extends BaseActivity {
         mBmobUser = BmobUser.getCurrentUser(MyUser.class);
         Log.e("Joy", mBmobUser.getObjectId());
         Log.e("Joy", mBmobUser.getIcon().getFilename());
-        ViewPager viewPager = (ViewPager) findViewById(R.id.vp);
+        viewPager = (ViewPager) findViewById(R.id.vp);
         TabFragmentPagerAdapter mAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    protected void initData() {
         final String[] colors = getResources().getStringArray(R.array.default_preview);
         final NavigationTabBar navigationTabBar = (NavigationTabBar) findViewById(R.id.ntb_horizontal);
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
@@ -69,7 +75,7 @@ public class MainActivity extends BaseActivity {
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_menu_gallery), Color.parseColor(colors[1]))
-                        .title("美图")
+                        .title("视频")
                         .build());
         models.add(
                 new NavigationTabBar.Model.Builder(
